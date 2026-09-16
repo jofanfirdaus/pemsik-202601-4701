@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="h-full bg-gray-100">
+    <div class="flex h-full">
+
+        <aside id="sidebar" class="bg-blue-800 text-white h-full transition-all duration-300 w-20 lg:w-64">
+            <div class="flex justify-between items-center p-4 border-b border-blue-700">
+                <span class="text-2xl font-bold hidden lg:block">Admin</span>
+            </div>
+
+            <nav class="p-4 space-y-2">
+                <a href="#" class="flex items-center space-x-2 px-4 py-2 rounded hover:bg-blue-700">
+                    <span class="text-lg">🏠</span>
+                    <span class="menu-text hidden lg:inline">Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center space-x-2 px-4 py-2 rounded hover:bg-blue-700">
+                    <span class="text-lg">🎓</span>
+                    <span class="menu-text hidden lg:inline">Mahasiswa</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <header class="bg-white shadow-md">
+            <h1 class="text-2x1 font-semibold text-gray-800">Mahasiswa</h1>
+        </header>
+  
+        <main class="flex-1 p-6 overflow-x-auto">
+  <div class="bg-white shadow rounded-lg p-4">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-lg font-semibold">Daftar Mahasiswa</h2>
+      <button onclick="openModal()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        + Tambah Mahasiswa
+      </button>
+    </div>
+    <table class="w-full text-sm text-gray-700">
+      <thead class="bg-blue-600 text-white">
+        <tr>
+          <th class="py-2 px-4 text-left">NIM</th>
+          <th class="py-2 px-4 text-left">Nama</th>
+          <th class="py-2 px-4 text-center">Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="even:bg-gray-100 odd:bg-white">
+          <td class="py-2 px-4">20211002</td>
+          <td class="py-2 px-4">Siti Aminah</td>
+          <td class="py-2 px-4 text-center space-x-2">
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600" onclick="editMahasiswa(this)">Edit</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" onclick="deleteMahasiswa(this)">Hapus</button>
+          </td>
+        </tr>
+        <tr class="even:bg-gray-100 odd:bg-white">
+          <td class="py-2 px-4">20211003</td>
+          <td class="py-2 px-4">Ahmad Fauzi</td>
+          <td class="py-2 px-4 text-center space-x-2">
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600" onclick="editMahasiswa(this)">Edit</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" onclick="deleteMahasiswa(this)">Hapus</button>
+          </td>
+        </tr>
+        <tr class="even:bg-gray-100 odd:bg-white">
+          <td class="py-2 px-4">20211004</td>
+          <td class="py-2 px-4">Dewi Lestari</td>
+          <td class="py-2 px-4 text-center space-x-2">
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600" onclick="editMahasiswa(this)">Edit</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" onclick="deleteMahasiswa(this)">Hapus</button>
+          </td>
+        </tr>
+        <tr class="even:bg-gray-100 odd:bg-white">
+          <td class="py-2 px-4">20211005</td>
+          <td class="py-2 px-4">Rudi Hartono</td>
+          <td class="py-2 px-4 text-center space-x-2">
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600" onclick="editMahasiswa(this)">Edit</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" onclick="deleteMahasiswa(this)">Hapus</button>
+          </td>
+        </tr>
+        <tr class="even:bg-gray-100 odd:bg-white">
+          <td class="py-2 px-4">20211001</td>
+          <td class="py-2 px-4">Budi Santoso</td>
+          <td class="py-2 px-4 text-center space-x-2">
+            <button class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600" onclick="editMahasiswa(this)">Edit</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600" onclick="deleteMahasiswa(this)">Hapus</button>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</main>
+    </div>  
+  </body>
+</html>
