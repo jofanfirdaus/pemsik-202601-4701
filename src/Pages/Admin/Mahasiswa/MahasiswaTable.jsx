@@ -1,7 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import Button from "@/Pages/Admin/Components/Button";
 
-const MahasiswaTable = ({ data = [], onEdit, onDelete, onDetail }) => {
+const MahasiswaTable = ({
+  data = [],
+  onEdit,
+  onDelete,
+  onDetail,
+  canManage = false,
+}) => {
   return (
     <table className="w-full text-sm text-gray-700">
       <thead className="bg-blue-600 text-white">
@@ -12,21 +17,46 @@ const MahasiswaTable = ({ data = [], onEdit, onDelete, onDetail }) => {
         </tr>
       </thead>
       <tbody>
-        {data.map((mhs, index) => (
-          <tr key={mhs.nim} className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}>
-            <td className="py-2 px-4">{mhs.nim}</td>
-            <td className="py-2 px-4">{mhs.nama}</td>
-            <td className="py-2 px-4 text-center space-x-2">
-              <Button onClick={() => onDetail(mhs.nim)}>Detail</Button>
-              <Button size="sm" variant="warning" onClick={() => onEdit(mhs)}>
-                Edit
-              </Button>
-              <Button size="sm" variant="danger" onClick={() => onDelete(mhs.nim)}>
-                Hapus
-              </Button>
+        {data.length === 0 ? (
+          <tr>
+            <td colSpan="3" className="py-6 px-4 text-center text-gray-500">
+              Belum ada data mahasiswa
             </td>
           </tr>
-        ))}
+        ) : (
+          data.map((mhs, index) => (
+            <tr
+              key={mhs.nim}
+              className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}
+            >
+              <td className="py-2 px-4">{mhs.nim}</td>
+              <td className="py-2 px-4">{mhs.nama}</td>
+              <td className="py-2 px-4 text-center space-x-2">
+                <Button size="sm" onClick={() => onDetail(mhs.nim)}>
+                  Detail
+                </Button>
+                {canManage && (
+                  <>
+                    <Button
+                      size="sm"
+                      variant="warning"
+                      onClick={() => onEdit(mhs)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="danger"
+                      onClick={() => onDelete(mhs.nim)}
+                    >
+                      Hapus
+                    </Button>
+                  </>
+                )}
+              </td>
+            </tr>
+          ))
+        )}
       </tbody>
     </table>
   );

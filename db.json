@@ -1,0 +1,50 @@
+{
+  "dosen": [],
+  "matakuliah": [],
+  "users": [
+    {
+      "id": "1",
+      "nama": "Admin",
+      "email": "admin@mail.com",
+      "password": "admin123",
+      "role": "admin",
+      "permissions": [
+        "dashboard.view",
+        "mahasiswa.view",
+        "dosen.view",
+        "matakuliah.view",
+        "data.manage",
+        "user.manage"
+      ]
+    },
+    {
+      "id": "2",
+      "nama": "Pak Dosen",
+      "email": "dosen@mail.com",
+      "password": "dosen123",
+      "role": "dosen",
+      "permissions": [
+        "dashboard.view",
+        "mahasiswa.view",
+        "dosen.view",
+        "matakuliah.view",
+        "data.manage"
+      ]
+    },
+    {
+      "id": "3",
+      "nama": "Jofan Mahasiswa",
+      "email": "mhs@mail.com",
+      "password": "mhs123",
+      "role": "dosen",
+      "permissions": [
+        "dashboard.view",
+        "mahasiswa.view",
+        "dosen.view",
+        "matakuliah.view",
+        "data.manage"
+      ]
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

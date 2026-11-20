@@ -6,19 +6,20 @@ import Button from "@/Pages/Admin/Components/Button";
 import MahasiswaModal from "./MahasiswaModal";
 import MahasiswaTable from "./MahasiswaTable";
 import { mahasiswaList } from "@/Data/Dummy";
-import {
-  confirmDelete,
-  confirmUpdate,
-} from "@/Utils/Helpers/SwalHelpers";
+import { confirmDelete, confirmUpdate } from "@/Utils/Helpers/SwalHelpers";
+import { toastSuccess, toastError } from "@/Utils/Helpers/ToastHelpers";
+import { can } from "@/Utils/permissions";
 
-import { toastSuccess } from "@/Utils/Helpers/ToastHelpers";
+const emptyForm = { nim: "", nama: "" };
 
 const Mahasiswa = () => {
   const navigate = useNavigate();
   const [mahasiswa, setMahasiswa] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [form, setForm] = useState({ nim: "", nama: "" });
+  const [form, setForm] = useState(emptyForm);
+
+  const canManage = can("data.manage");
 
   const fetchMahasiswa = async () => {
     setMahasiswa(mahasiswaList);
@@ -33,8 +34,14 @@ const Mahasiswa = () => {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const closeModal = () => {
+    setForm(emptyForm);
+    setIsEdit(false);
+    setIsModalOpen(false);
+  };
+
   const openAddModal = () => {
-    setForm({ nim: "", nama: "" });
+    setForm(emptyForm);
     setIsEdit(false);
     setIsModalOpen(true);
   };
@@ -46,47 +53,48 @@ const Mahasiswa = () => {
   };
 
   const handleSubmit = (e) => {
-  e.preventDefault();
-  if (!form.nim || !form.nama) {
-    toastError("NIM dan Nama wajib diisi");
-    return;
-  }
+    e.preventDefault();
 
-  if (isEdit) {
-    confirmUpdate(() => {
-      updateMahasiswa(form.nim, form);
-      toastSuccess("Data berhasil diperbarui");
-      setForm({ nim: "", nama: "" });
-      setIsEdit(false);
-      setIsModalOpen(false);
-    });
-  } else {
-    const exists = mahasiswa.find((m) => m.nim === form.nim);
-    if (exists) {
-      toastError("NIM sudah terdaftar!");
+    if (!canManage) {
+      toastError("Kamu tidak punya izin mengubah data");
       return;
     }
-    addMahasiswa(form);
-    toastSuccess("Data berhasil ditambahkan");
-    setForm({ nim: "", nama: "" });
-    setIsModalOpen(false);
-  }
-};
+
+    if (!form.nim || !form.nama) {
+      toastError("NIM dan Nama wajib diisi");
+      return;
+    }
+
+    if (isEdit) {
+      confirmUpdate(() => {
+        setMahasiswa((prev) =>
+          prev.map((m) => (m.nim === form.nim ? { ...m, ...form } : m))
+        );
+        toastSuccess("Data berhasil diperbarui");
+        closeModal();
+      });
+    } else {
+      const exists = mahasiswa.find((m) => m.nim === form.nim);
+      if (exists) {
+        toastError("NIM sudah terdaftar!");
+        return;
+      }
+      setMahasiswa((prev) => [...prev, form]);
+      toastSuccess("Data berhasil ditambahkan");
+      closeModal();
+    }
+  };
 
   const handleDelete = (nim) => {
-  confirmDelete(() => {
-    deleteMahasiswa(nim);
-    toastSuccess("Data berhasil dihapus");
-  });
-
-
-    if (isConfirmed) {
-      const filtered = mahasiswa.filter((mhs) => mhs.nim !== nim);
-      setMahasiswa(filtered);
-      showSuccess("Data berhasil dihapus!");
-    } else {
-      showError("Penghapusan data dibatalkan!");
+    if (!canManage) {
+      toastError("Kamu tidak punya izin menghapus data");
+      return;
     }
+
+    confirmDelete(() => {
+      setMahasiswa((prev) => prev.filter((m) => m.nim !== nim));
+      toastSuccess("Data berhasil dihapus");
+    });
   };
 
   return (
@@ -97,7 +105,9 @@ const Mahasiswa = () => {
             Daftar Mahasiswa
           </Heading>
 
-          <Button onClick={openAddModal}>+ Tambah Mahasiswa</Button>
+          {canManage && (
+            <Button onClick={openAddModal}>+ Tambah Mahasiswa</Button>
+          )}
         </div>
 
         <MahasiswaTable
@@ -105,6 +115,7 @@ const Mahasiswa = () => {
           onEdit={handleEdit}
           onDelete={handleDelete}
           onDetail={(nim) => navigate(`/admin/mahasiswa/${nim}`)}
+          canManage={canManage}
         />
       </Card>
 
@@ -113,7 +124,7 @@ const Mahasiswa = () => {
         isEdit={isEdit}
         form={form}
         onChange={handleChange}
-        onClose={() => setIsModalOpen(false)}
+        onClose={closeModal}
         onSubmit={handleSubmit}
       />
     </>
