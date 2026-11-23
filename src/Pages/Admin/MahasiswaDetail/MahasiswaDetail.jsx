@@ -1,15 +1,14 @@
+import { useParams } from "react-router-dom";
 import Card from "@/Pages/Admin/Components/Card";
 import Heading from "@/Pages/Admin/Components/Heading";
-
-import { mahasiswaList } from "@/Data/Dummy";
+import { useMahasiswaDetail } from "@/Utils/Hooks/useMahasiswa";
 
 const MahasiswaDetail = () => {
+  const { nim } = useParams();
+  const { data: mahasiswa, isLoading, isError } = useMahasiswaDetail(nim);
 
-  const path = window.location.pathname;
-  const nim = path.split("/").pop();
-
-  const mahasiswa = mahasiswaList.find((m) => m.nim === nim);
-
+  if (isLoading) return <p className="text-gray-500">Loading...</p>;
+  if (isError) return <p className="text-red-600">Gagal mengambil data.</p>;
   if (!mahasiswa) {
     return <p className="text-red-600">Data mahasiswa tidak ditemukan.</p>;
   }

@@ -1,37 +1,32 @@
-import { useEffect, useState } from "react";
-import api from "@/Utils/api";
+import { useState } from "react";
 import { can } from "@/Utils/permissions";
+import { usePagination } from "@/Utils/Hooks/usePagination";
+import Pagination from "@/Pages/Admin/Components/Pagination";
 import { toastSuccess, toastError } from "@/Utils/Helpers/ToastHelpers";
+import {
+  useDosen,
+  useCreateDosen,
+  useUpdateDosen,
+  useDeleteDosen,
+} from "@/Utils/Hooks/useDosen";
 import DosenTable from "./DosenTable";
 import DosenModal from "./DosenModal";
+
 
 const emptyForm = { nidn: "", nama: "", email: "" };
 
 const Dosen = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [editId, setEditId] = useState(null);
 
   const canManage = can("data.manage");
 
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const res = await api.get("/dosen");
-      setData(res.data);
-    } catch (err) {
-      console.error(err);
-      toastError("Gagal mengambil data");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { data = [], isLoading, isError } = useDosen();
+  const pagination = usePagination(data);
+  const createDosen = useCreateDosen();
+  const updateDosen = useUpdateDosen();
+  const deleteDosen = useDeleteDosen();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -54,36 +49,33 @@ const Dosen = () => {
     setForm(emptyForm);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!canManage) return toastError("Kamu tidak punya izin mengubah data");
-    try {
-      if (editId) {
-        await api.put(`/dosen/${editId}`, form);
-        toastSuccess("Data dosen diperbarui");
-      } else {
-        await api.post("/dosen", form);
-        toastSuccess("Data dosen ditambahkan");
-      }
-      closeModal();
-      fetchData();
-    } catch (err) {
-      console.error(err);
-      toastError("Gagal menyimpan data");
+
+    const options = {
+      onSuccess: () => {
+        toastSuccess(editId ? "Data dosen diperbarui" : "Data dosen ditambahkan");
+        closeModal();
+      },
+      onError: () => toastError("Gagal menyimpan data"),
+    };
+
+    if (editId) {
+      updateDosen.mutate({ id: editId, data: form }, options);
+    } else {
+      createDosen.mutate(form, options);
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     if (!canManage) return toastError("Kamu tidak punya izin menghapus data");
     if (!confirm("Yakin hapus data ini?")) return;
-    try {
-      await api.delete(`/dosen/${id}`);
-      toastSuccess("Data dosen dihapus");
-      fetchData();
-    } catch (err) {
-      console.error(err);
-      toastError("Gagal menghapus data");
-    }
+
+    deleteDosen.mutate(id, {
+      onSuccess: () => toastSuccess("Data dosen dihapus"),
+      onError: () => toastError("Gagal menghapus data"),
+    });
   };
 
   return (
@@ -100,16 +92,21 @@ const Dosen = () => {
         )}
       </div>
 
-      {loading ? (
+      {isLoading ? (
         <p className="text-gray-500">Loading...</p>
+      ) : isError ? (
+        <p className="text-red-600">Gagal mengambil data dosen.</p>
       ) : (
+      <>
         <DosenTable
-          data={data}
-          onEdit={openEdit}
-          onDelete={handleDelete}
-          canManage={canManage}
-        />
-      )}
+        data={pagination.pageData}
+        onEdit={openEdit}
+        onDelete={handleDelete}
+        canManage={canManage}
+      />
+      <Pagination {...pagination} />
+      </>
+  )}
 
       <DosenModal
         isOpen={isOpen}

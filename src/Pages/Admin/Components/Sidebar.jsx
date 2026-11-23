@@ -7,6 +7,7 @@ const menus = [
   { to: "/admin/dosen", icon: "👨‍🏫", label: "Dosen", permission: "dosen.view" },
   { to: "/admin/matakuliah", icon: "📚", label: "Mata Kuliah", permission: "matakuliah.view" },
   { to: "/admin/users", icon: "👤", label: "Pengguna", permission: "user.manage" },
+  { to: "/admin/kelas", icon: "🏫", label: "Kelas", permission: "kelas.view" },
 ];
 
 const Sidebar = () => {

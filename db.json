@@ -1,6 +1,349 @@
 {
-  "dosen": [],
-  "matakuliah": [],
+  "dosen": [
+    {
+      "nidn": "11112233",
+      "nama": "Irghy Achamd",
+      "email": "Irghy@dosen.dinus.ac.id",
+      "id": "H8d25CYyruo"
+    },
+    {
+      "nidn": "11112234",
+      "nama": "Briyan",
+      "email": "Briyan@dosen.dinus.ac.id",
+      "id": "qQB9TpENS6o"
+    },
+    {
+      "nidn": "06001100",
+      "nama": "Dr. Budi Wijaya",
+      "email": "budi@dosen.ac.id",
+      "id": "aqfnv0vT1SE"
+    },
+    {
+      "nidn": "06001102",
+      "nama": "Dr. Ahmad Wijaya",
+      "email": "ahmad@dosen.ac.id",
+      "id": "fTrz3x4sto8"
+    },
+    {
+      "nidn": "06001103",
+      "nama": "Dr. Ryan Wijaya",
+      "email": "ryan@dosen.ac.id",
+      "id": "8EMxHJL--Os"
+    },
+    {
+      "nidn": "06001104",
+      "nama": "Dr. Dewi Wijaya",
+      "email": "dewi@dosen.ac.id",
+      "id": "xarW2DgJESU"
+    },
+    {
+      "nidn": "06001105",
+      "nama": "Dr. Andi Wijaya",
+      "email": "andi@dosen.ac.id",
+      "id": "mt7SkoV4sxE"
+    },
+    {
+      "nidn": "06001106",
+      "nama": "Dr. Rina Wijaya",
+      "email": "rina@dosen.ac.id",
+      "id": "InTTD_uW8IM"
+    },
+    {
+      "nidn": "06001107",
+      "nama": "Dr. Fajar Wijaya",
+      "email": "fajar@dosen.ac.id",
+      "id": "OoTKYGg4sq8"
+    },
+    {
+      "nidn": "06001109",
+      "nama": "Dr. Hendra Wijaya",
+      "email": "hendra@dosen.ac.id",
+      "id": "740qZYOiqUg"
+    },
+    {
+      "nidn": "06001110",
+      "nama": "Dr. Putri Wijaya",
+      "email": "putri@dosen.ac.id",
+      "id": "iRBY1JSA0iw"
+    },
+    {
+      "nidn": "06001111",
+      "nama": "Dr. Yoga Wijaya",
+      "email": "yoga@dosen.ac.id",
+      "id": "x-47sQYcloQ"
+    }
+  ],
+  "matakuliah": [
+    {
+      "kode": "001",
+      "nama": "Pemsik",
+      "sks": 3,
+      "semester": 5,
+      "id": "t8xy3nQG3BM"
+    },
+    {
+      "kode": "002",
+      "nama": "Kriptografi",
+      "sks": 3,
+      "semester": 5,
+      "id": "X88O-bWD7Wc"
+    },
+    {
+      "kode": "MK002",
+      "nama": "Basis Data",
+      "sks": 3,
+      "semester": 2,
+      "id": "BagBd7Sexm4"
+    },
+    {
+      "kode": "MK003",
+      "nama": "Algoritma",
+      "sks": 4,
+      "semester": 3,
+      "id": "eK4G6ODRjOU"
+    },
+    {
+      "kode": "MK004",
+      "nama": "Struktur Data",
+      "sks": 2,
+      "semester": 4,
+      "id": "QPWDMfvlhgU"
+    },
+    {
+      "kode": "MK005",
+      "nama": "Jaringan Komputer",
+      "sks": 3,
+      "semester": 5,
+      "id": "ImUVuBVAMyo"
+    },
+    {
+      "kode": "MK006",
+      "nama": "Sistem Operasi",
+      "sks": 4,
+      "semester": 6,
+      "id": "3C8jC3jfAA8"
+    },
+    {
+      "kode": "MK008",
+      "nama": "Kecerdasan Buatan",
+      "sks": 3,
+      "semester": 8,
+      "id": "N3GpOHjKuOk"
+    },
+    {
+      "kode": "MK009",
+      "nama": "Pemrograman Mobile",
+      "sks": 4,
+      "semester": 1,
+      "id": "xst2zmF7II8"
+    },
+    {
+      "kode": "MK010",
+      "nama": "Keamanan Informasi",
+      "sks": 2,
+      "semester": 2,
+      "id": "KQO42Jyc82I"
+    },
+    {
+      "kode": "MK012",
+      "nama": "Statistika",
+      "sks": 4,
+      "semester": 4,
+      "id": "WUh9Eed8TlQ"
+    }
+  ],
+  "mahasiswa": [
+    {
+      "id": "1",
+      "nim": "20211001",
+      "nama": "Budi Santoso"
+    },
+    {
+      "id": "2",
+      "nim": "20211002",
+      "nama": "Siti Aminah"
+    },
+    {
+      "id": "3",
+      "nim": "20211003",
+      "nama": "Ahmad Fauzi"
+    },
+    {
+      "id": "4",
+      "nim": "20211004",
+      "nama": "Ryan Armando"
+    },
+    {
+      "id": "5",
+      "nim": "20211005",
+      "nama": "Nandoo"
+    },
+    {
+      "nim": "20221001",
+      "nama": "Budi Pratama",
+      "id": "FgtB7lt0Fm0"
+    },
+    {
+      "nim": "20221002",
+      "nama": "Siti Pratama",
+      "id": "fq-wqDCLX7I"
+    },
+    {
+      "nim": "20221003",
+      "nama": "Ahmad Pratama",
+      "id": "BN-igL9XJqQ"
+    },
+    {
+      "nim": "20221004",
+      "nama": "Ryan Pratama",
+      "id": "f29V4hEef6o"
+    },
+    {
+      "nim": "20221005",
+      "nama": "Dewi Pratama",
+      "id": "K6Wl_J_aDfY"
+    },
+    {
+      "nim": "20221007",
+      "nama": "Rina Pratama",
+      "id": "JJ9P4fSyoz4"
+    },
+    {
+      "nim": "20221008",
+      "nama": "Fajar Pratama",
+      "id": "2TQnSWL5rVA"
+    },
+    {
+      "nim": "20221009",
+      "nama": "Lestari Pratama",
+      "id": "mlXcqnBTZHs"
+    },
+    {
+      "nim": "20221010",
+      "nama": "Hendra Pratama",
+      "id": "XEJ8jbUcM7U"
+    },
+    {
+      "nim": "20221011",
+      "nama": "Putri Pratama",
+      "id": "_EMtBSdeS0Y"
+    },
+    {
+      "nim": "20221012",
+      "nama": "Yoga Pratama",
+      "id": "Ztq63Nu0Y3M"
+    }
+  ],
+  "kelas": [
+    {
+      "kode": "001",
+      "nama": "Pemrograman",
+      "mataKuliahId": "t8xy3nQG3BM",
+      "dosenId": "H8d25CYyruo",
+      "hari": "Selasa",
+      "ruang": "H.4.1",
+      "id": "gm26IV0PE8I"
+    },
+    {
+      "kode": "002",
+      "nama": "Kriptografi",
+      "mataKuliahId": "X88O-bWD7Wc",
+      "dosenId": "qQB9TpENS6o",
+      "hari": "Kamis",
+      "ruang": "H.5.2",
+      "id": "Z73fKBi5vRE"
+    },
+    {
+      "kode": "TI-101",
+      "nama": "Kelas A",
+      "mataKuliahId": "Z0ykJlyTMZ4",
+      "dosenId": "aqfnv0vT1SE",
+      "hari": "Senin",
+      "ruang": "H.1.1",
+      "id": "Lc8qHDnbPW0"
+    },
+    {
+      "kode": "TI-102",
+      "nama": "Kelas B",
+      "mataKuliahId": "BagBd7Sexm4",
+      "dosenId": "nXDvBNr6D6I",
+      "hari": "Selasa",
+      "ruang": "H.2.2",
+      "id": "m3hMjH0Oihk"
+    },
+    {
+      "kode": "TI-103",
+      "nama": "Kelas C",
+      "mataKuliahId": "eK4G6ODRjOU",
+      "dosenId": "fTrz3x4sto8",
+      "hari": "Rabu",
+      "ruang": "H.3.3",
+      "id": "6sG_AxvOVdQ"
+    },
+    {
+      "kode": "TI-104",
+      "nama": "Kelas A",
+      "mataKuliahId": "QPWDMfvlhgU",
+      "dosenId": "8EMxHJL--Os",
+      "hari": "Kamis",
+      "ruang": "H.4.1",
+      "id": "Xs6jYA70Qg0"
+    },
+    {
+      "kode": "TI-105",
+      "nama": "Kelas B",
+      "mataKuliahId": "ImUVuBVAMyo",
+      "dosenId": "xarW2DgJESU",
+      "hari": "Jumat",
+      "ruang": "H.1.2",
+      "id": "C3XgO-qjcBM"
+    },
+    {
+      "kode": "TI-107",
+      "nama": "Kelas A",
+      "mataKuliahId": "i4OFaQmDS5g",
+      "dosenId": "InTTD_uW8IM",
+      "hari": "Senin",
+      "ruang": "H.3.1",
+      "id": "eoiB2XAqkhc"
+    },
+    {
+      "kode": "TI-108",
+      "nama": "Kelas B",
+      "mataKuliahId": "N3GpOHjKuOk",
+      "dosenId": "OoTKYGg4sq8",
+      "hari": "Selasa",
+      "ruang": "H.4.2",
+      "id": "WHZ4cEOPieY"
+    },
+    {
+      "kode": "TI-110",
+      "nama": "Kelas A",
+      "mataKuliahId": "KQO42Jyc82I",
+      "dosenId": "740qZYOiqUg",
+      "hari": "Kamis",
+      "ruang": "H.2.1",
+      "id": "zFLzWOArS1w"
+    },
+    {
+      "kode": "TI-111",
+      "nama": "Kelas B",
+      "mataKuliahId": "ajoj8D6hiAc",
+      "dosenId": "iRBY1JSA0iw",
+      "hari": "Jumat",
+      "ruang": "H.3.2",
+      "id": "Sq9FPUryVIY"
+    },
+    {
+      "kode": "TI-112",
+      "nama": "Kelas C",
+      "mataKuliahId": "WUh9Eed8TlQ",
+      "dosenId": "x-47sQYcloQ",
+      "hari": "Sabtu",
+      "ruang": "H.4.3",
+      "id": "BFpBK9ybnF8"
+    }
+  ],
   "users": [
     {
       "id": "1",
@@ -13,6 +356,7 @@
         "mahasiswa.view",
         "dosen.view",
         "matakuliah.view",
+        "kelas.view",
         "data.manage",
         "user.manage"
       ]
@@ -28,6 +372,7 @@
         "mahasiswa.view",
         "dosen.view",
         "matakuliah.view",
+        "kelas.view",
         "data.manage"
       ]
     },
@@ -42,10 +387,12 @@
         "mahasiswa.view",
         "dosen.view",
         "matakuliah.view",
+        "kelas.view",
         "data.manage"
       ]
     },
     {
+      "id": "xk0T38EUC8g",
       "nama": "Nando",
       "email": "Nando@mail.com",
       "password": "nando123",
@@ -53,9 +400,9 @@
       "permissions": [
         "dashboard.view",
         "mahasiswa.view",
-        "matakuliah.view"
-      ],
-      "id": "xk0T38EUC8g"
+        "matakuliah.view",
+        "kelas.view"
+      ]
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

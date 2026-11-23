@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Navigate, createBrowserRouter, RouterProvider } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 
 import "./App.css";
@@ -19,21 +20,25 @@ import Mahasiswa from "@/Pages/Admin/Mahasiswa/Mahasiswa";
 import MahasiswaDetail from "@/Pages/Admin/MahasiswaDetail/MahasiswaDetail";
 import Dosen from "@/Pages/Admin/Dosen/Dosen";
 import MataKuliah from "@/Pages/Admin/MataKuliah/MataKuliah";
+import Kelas from "@/Pages/Admin/Kelas/Kelas";
 import PageNotFound from "@/Pages/Error/PageNotFound";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <AuthLayout />,
     children: [
-      {
-        index: true,
-        element: <Login />,
-      },
-      {
-        path: "register",
-        element: <Register />,
-      },
+      { index: true, element: <Login /> },
+      { path: "register", element: <Register /> },
     ],
   },
   {
@@ -44,51 +49,51 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
-  { index: true, element: <Navigate to="dashboard" /> },
-  {
-    path: "dashboard",
-    element: <PermissionRoute permission="dashboard.view"><Dashboard /></PermissionRoute>,
-  },
-  {
-    path: "mahasiswa",
-    children: [
+      { index: true, element: <Navigate to="dashboard" /> },
       {
-        index: true,
-        element: <PermissionRoute permission="mahasiswa.view"><Mahasiswa /></PermissionRoute>,
+        path: "dashboard",
+        element: <PermissionRoute permission="dashboard.view"><Dashboard /></PermissionRoute>,
       },
       {
-        path: ":nim",
-        element: <PermissionRoute permission="mahasiswa.view"><MahasiswaDetail /></PermissionRoute>,
+        path: "mahasiswa",
+        children: [
+          {
+            index: true,
+            element: <PermissionRoute permission="mahasiswa.view"><Mahasiswa /></PermissionRoute>,
+          },
+          {
+            path: ":nim",
+            element: <PermissionRoute permission="mahasiswa.view"><MahasiswaDetail /></PermissionRoute>,
+          },
+        ],
+      },
+      {
+        path: "dosen",
+        element: <PermissionRoute permission="dosen.view"><Dosen /></PermissionRoute>,
+      },
+      {
+        path: "matakuliah",
+        element: <PermissionRoute permission="matakuliah.view"><MataKuliah /></PermissionRoute>,
+      },
+      {
+        path: "kelas",
+        element: <PermissionRoute permission="kelas.view"><Kelas /></PermissionRoute>,
+      },
+      {
+        path: "users",
+        element: <PermissionRoute permission="user.manage"><User /></PermissionRoute>,
       },
     ],
   },
-  {
-    path: "dosen",
-    element: <PermissionRoute permission="dosen.view"><Dosen /></PermissionRoute>,
-  },
-  {
-    path: "matakuliah",
-    element: <PermissionRoute permission="matakuliah.view"><MataKuliah /></PermissionRoute>,
-  },
-  {
-    path: "users",
-    element: <PermissionRoute permission="user.manage"><User /></PermissionRoute>,
-  },
-],
-  },
-    {
-    path: "/login",
-    element: <Navigate to="/" replace />,
-    },
-  {
-    path: "*",
-    element: <PageNotFound />,
-  },
+  { path: "/login", element: <Navigate to="/" replace /> },
+  { path: "*", element: <PageNotFound /> },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Toaster position="top-right" reverseOrder={false} />
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <Toaster position="top-right" reverseOrder={false} />
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 );

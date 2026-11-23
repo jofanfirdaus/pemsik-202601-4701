@@ -1,37 +1,31 @@
-import { useEffect, useState } from "react";
-import api from "@/Utils/api";
+import { useState } from "react";
 import { can } from "@/Utils/permissions";
+import { usePagination } from "@/Utils/Hooks/usePagination";
+import Pagination from "@/Pages/Admin/Components/Pagination";
 import { toastSuccess, toastError } from "@/Utils/Helpers/ToastHelpers";
+import {
+  useMataKuliah,
+  useCreateMataKuliah,
+  useUpdateMataKuliah,
+  useDeleteMataKuliah,
+} from "@/Utils/Hooks/useMataKuliah";
 import MataKuliahTable from "./MataKuliahTable";
 import MataKuliahModal from "./MataKuliahModal";
 
 const emptyForm = { kode: "", nama: "", sks: "", semester: "" };
 
 const MataKuliah = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [form, setForm] = useState(emptyForm);
   const [editId, setEditId] = useState(null);
 
   const canManage = can("data.manage");
 
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const res = await api.get("/matakuliah");
-      setData(res.data);
-    } catch (err) {
-      console.error(err);
-      toastError("Gagal mengambil data");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { data = [], isLoading, isError } = useMataKuliah();
+  const pagination = usePagination(data);
+  const createMk = useCreateMataKuliah();
+  const updateMk = useUpdateMataKuliah();
+  const deleteMk = useDeleteMataKuliah();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -59,7 +53,7 @@ const MataKuliah = () => {
     setForm(emptyForm);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (!canManage) return toastError("Kamu tidak punya izin mengubah data");
 
@@ -68,33 +62,30 @@ const MataKuliah = () => {
       sks: Number(form.sks),
       semester: Number(form.semester),
     };
-    try {
-      if (editId) {
-        await api.put(`/matakuliah/${editId}`, payload);
-        toastSuccess("Mata kuliah diperbarui");
-      } else {
-        await api.post("/matakuliah", payload);
-        toastSuccess("Mata kuliah ditambahkan");
-      }
-      closeModal();
-      fetchData();
-    } catch (err) {
-      console.error(err);
-      toastError("Gagal menyimpan data");
+
+    const options = {
+      onSuccess: () => {
+        toastSuccess(editId ? "Mata kuliah diperbarui" : "Mata kuliah ditambahkan");
+        closeModal();
+      },
+      onError: () => toastError("Gagal menyimpan data"),
+    };
+
+    if (editId) {
+      updateMk.mutate({ id: editId, data: payload }, options);
+    } else {
+      createMk.mutate(payload, options);
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     if (!canManage) return toastError("Kamu tidak punya izin menghapus data");
     if (!confirm("Yakin hapus mata kuliah ini?")) return;
-    try {
-      await api.delete(`/matakuliah/${id}`);
-      toastSuccess("Mata kuliah dihapus");
-      fetchData();
-    } catch (err) {
-      console.error(err);
-      toastError("Gagal menghapus data");
-    }
+
+    deleteMk.mutate(id, {
+      onSuccess: () => toastSuccess("Mata kuliah dihapus"),
+      onError: () => toastError("Gagal menghapus data"),
+    });
   };
 
   return (
@@ -111,15 +102,20 @@ const MataKuliah = () => {
         )}
       </div>
 
-      {loading ? (
+      {isLoading ? (
         <p className="text-gray-500">Loading...</p>
+      ) : isError ? (
+        <p className="text-red-600">Gagal mengambil data mata kuliah.</p>
       ) : (
-        <MataKuliahTable
-          data={data}
-          onEdit={openEdit}
-          onDelete={handleDelete}
-          canManage={canManage}
-        />
+        <>
+          <MataKuliahTable
+            data={pagination.pageData}
+            onEdit={openEdit}
+            onDelete={handleDelete}
+            canManage={canManage}
+          />
+          <Pagination {...pagination} />
+        </>
       )}
 
       <MataKuliahModal
